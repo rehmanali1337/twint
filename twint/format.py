@@ -1,12 +1,13 @@
 import logging as logme
 
+
 def Tweet(config, t):
     if config.Format:
         logme.debug(__name__+':Tweet:Format')
         output = config.Format.replace("{id}", t.id_str)
-        output = output.replace("{conversation_id}", t.conversation_id)
-        output = output.replace("{date}", t.datestamp)
-        output = output.replace("{time}", t.timestamp)
+        output = output.replace("{conversation_id}", str(t.conversation_id))
+        output = output.replace("{date}", str(t.datestamp))
+        output = output.replace("{time}", str(t.timestamp))
         output = output.replace("{user_id}", t.user_id_str)
         output = output.replace("{username}", t.username)
         output = output.replace("{name}", t.name)
@@ -20,9 +21,9 @@ def Tweet(config, t):
         output = output.replace("{language}", t.lang)
         output = output.replace("{hashtags}", ",".join(t.hashtags))
         output = output.replace("{cashtags}", ",".join(t.cashtags))
-        output = output.replace("{replies}", t.replies_count)
-        output = output.replace("{retweets}", t.retweets_count)
-        output = output.replace("{likes}", t.likes_count)
+        output = output.replace("{replies}", str(t.replies_count))
+        output = output.replace("{retweets}", str(t.retweets_count))
+        output = output.replace("{likes}", str(t.likes_count))
         output = output.replace("{link}", t.link)
         output = output.replace("{is_retweet}", str(t.retweet))
         output = output.replace("{user_rt_id}", str(t.user_rt_id))
@@ -54,6 +55,7 @@ def Tweet(config, t):
         if config.Translate:
             output += f" {t.translate} {t.trans_src} {t.trans_dest}"
     return output
+
 
 def User(_format, u):
     if _format:
