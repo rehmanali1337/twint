@@ -17,6 +17,7 @@ class NoMoreTweetsException(Exception):
 
 def Follow(response):
     logme.debug(__name__ + ':Follow')
+    # print("Response", response)
     soup = BeautifulSoup(response, "html.parser")
     follow = soup.find_all("td", "info fifty screenname")
     cursor = soup.find_all("div", "w-button-more")
@@ -100,7 +101,8 @@ def parse_tweets(config, response):
             try:
                 temp_obj = response['globalObjects']['tweets'][_id]
             except KeyError:
-                logme.info('encountered a deleted tweet with id {}'.format(_id))
+                logme.info(
+                    'encountered a deleted tweet with id {}'.format(_id))
 
                 config.deleted.append(_id)
                 continue
